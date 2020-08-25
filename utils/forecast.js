@@ -8,18 +8,18 @@ const forecast = (longitude, latitude, callback) => {
     longitude;
   request(
     {
-      url: url,
+      url,
       json: true,
     },
-    (error, response) => {
+    (error, { body }) => {
       if (error) {
         callback("Unable to connect!", undefined);
-      } else if (response.body.error) {
-        callback(response.body.error.info, undefined);
+      } else if (body.error) {
+        callback(body.error.info, undefined);
       } else {
         callback(
           undefined,
-          `${response.body.current.weather_descriptions}. It is currently ${response.body.current.temperature} degrees out. But feels like ${response.body.current.feelslike} degrees.`
+          `${body.current.weather_descriptions}. It is currently ${body.current.temperature} degrees out. But feels like ${body.current.feelslike} degrees.`
         );
       }
     }
